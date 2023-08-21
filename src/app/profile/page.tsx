@@ -1,24 +1,25 @@
 "use client";
-import axios from "axios";
-import Link from "next/link";
-import React, {useState} from "react";
+
+import React from "react";
 import {toast} from "react-hot-toast";
 import {useRouter} from "next/navigation";
 import { Container, Button, Typography, Divider } from "@mui/material";
+import { useLogoutUserMutation } from "@/slices/apiSlice";
 
 export default function ProfilePage() {
     const router = useRouter()
-    const [data, setData] = useState("nothing")
-    const logout = async () => {
-        try {
-            await axios.get('/api/users/logout')
-            toast.success('Logout successful')
-            router.push('/login')
-        } catch (error:any) {
-            console.log(error.message);
-            toast.error(error.message)
-        }
-    }
+    const [logout] = useLogoutUserMutation();
+
+    const handleLogout = async () => {
+      try {
+          await logout();
+          toast.success('Logout successful');
+          router.push('/login');
+      } catch (e:any) {
+          console.log('Logout failed', e);
+          toast.error(e.message);
+      }
+  };
 
     return (
 <Container
@@ -40,7 +41,7 @@ export default function ProfilePage() {
         variant="contained"
         color="primary"
         style={{ marginTop: "10px" }}
-        onClick={logout}
+        onClick={handleLogout}
       >
         Logout
       </Button>

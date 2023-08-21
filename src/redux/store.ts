@@ -1,11 +1,11 @@
+"use client";
+
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "@/slices/authSlice";
 import { apiSlice } from "@/slices/apiSlice";
 
 export function makeStore() {
     return configureStore({
         reducer: {
-            auth: authSlice,
             api: apiSlice.reducer
         },
         middleware: (getDefaultMiddleware) =>

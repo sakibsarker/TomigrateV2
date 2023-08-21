@@ -1,3 +1,5 @@
+"use client";
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 type User = any;
@@ -8,19 +10,32 @@ export const apiSlice = createApi({
     baseQuery,
     tagTypes: ['User'],
     endpoints: (builder) => ({
-        getCurrentUser: builder.query<User, void>({
-            query: () => 'current',
-        }),
-        registerUser: builder.mutation<{ user: User }, { email: string; name: string; password: string }>({
-            query: (newUserData) => ({
-                url: 'register',
-                method: 'POST',
-                body: newUserData
-            })
-        }),
-
-
+    getCurrentUser: builder.query<User, void>({
+        query: () => 'current',
     }),
+    registerUser: builder.mutation<{ user: User }, { email: string; username: string; password: string }>({
+        query: (newUserData) => ({
+            url: '/signup',
+            method: 'POST',
+            body: newUserData
+        }),
+    }),
+    loginUser: builder.mutation<{ user: User }, { email: string; password: string }>({
+        query: (credentials) => ({
+            url: '/login',
+            method: 'POST',
+            body: credentials
+        }),
+    }),
+    logoutUser: builder.mutation<void, void>({
+        query: () => ({
+            url: '/logout',
+            method: 'GET',
+        }),
+    }),
+    
+}),
+
 });
 
-export const { useGetCurrentUserQuery,useRegisterUserMutation } = apiSlice;
+export const { useRegisterUserMutation,useLoginUserMutation,useLogoutUserMutation } = apiSlice;
