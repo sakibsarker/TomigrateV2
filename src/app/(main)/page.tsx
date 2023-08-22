@@ -6,9 +6,12 @@ import { useRouter } from "next/navigation";
 import { Container, Button, Typography, Divider } from "@mui/material";
 import { useLogoutUserMutation } from "@/slices/apiSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { removeAuthToken } from "@/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function ProfilePage() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [logout] = useLogoutUserMutation();
   const [token, setToken] = useLocalStorage("token", "");
 
@@ -16,7 +19,7 @@ export default function ProfilePage() {
     try {
       await logout();
       setToken(null);
-
+      dispatch(removeAuthToken());
       toast.success("Logout successful");
       router.push("/login");
     } catch (e: any) {

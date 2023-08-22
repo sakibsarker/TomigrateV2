@@ -1,25 +1,30 @@
+"use client";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import { useLogoutUserMutation } from "@/slices/apiSlice";
 import { useRouter } from "next/navigation";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { toast } from "react-hot-toast";
+import { signOut } from "next-auth/react";
 
 const LogoutButton = () => {
   const router = useRouter();
   const [token, setToken] = useLocalStorage("token", "");
-  const [logout, { isSuccess, isLoading }] = useLogoutUserMutation();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleButtonClick = async () => {
+    setIsLoading(true);
     try {
-      await logout();
+      await signOut();
       setToken(null);
 
       toast.success("Logout successful");
+
       router.push("/login");
+      setIsLoading(false);
     } catch (e: any) {
       console.log("Logout failed", e);
       toast.error(e.message);
+      setIsLoading(false);
     }
   };
 

@@ -11,10 +11,15 @@ import Container from "@mui/material/Container";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useLoginUserMutation } from "@/slices/apiSlice";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthToken } from "@/slices/authSlice";
 
 export default function LoginPage() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [login, { isLoading, isError, error }] = useLoginUserMutation();
+  const authState = useSelector((state: any) => state.auth);
+
   const [token, setToken] = useLocalStorage("token", "");
 
   const [user, setUser] = React.useState({
@@ -30,6 +35,7 @@ export default function LoginPage() {
       if (tkn) {
         toast.success("Login success");
         setToken(tkn);
+        dispatch(setAuthToken(tkn));
         router.push("/");
       }
     } catch (e: any) {

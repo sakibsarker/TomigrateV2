@@ -45,7 +45,7 @@ export const APP_ROUTES = Object.freeze({
       name: "Home",
       isMenuItem: true,
       icon: <HomeOutlinedIcon />,
-      path: "home",
+      path: "/",
 
       tooltip: "Home",
       position: 0,
