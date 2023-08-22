@@ -1,0 +1,30 @@
+html {
+  font-size: 16px;
+}
+v body {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .MuiTooltip-tooltip {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  white-space: pre-wrap;
+}
+#layout-wrapper {
+  :global {
+    height: 100vh;
+    width: 100vw;
+  }
+}

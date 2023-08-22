@@ -1,0 +1,43 @@
+@use 'src/common/styles/colors' as *;
+@use 'src/common/styles/variables' as *;
+
+@mixin _drawer-common-styles {
+  transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+  overflow-x: hidden;
+}
+
+@mixin _drawerOpened {
+  width: $drawer-opened-width;
+  @include _drawer-common-styles;
+}
+
+@mixin _drawerClosed {
+  width: $drawer-closed-width;
+  @include _drawer-common-styles;
+}
+
+#app-sidenav {
+  :global {
+    .MuiDrawer-root {
+      @include _drawerClosed;
+      flex-shrink: 0;
+      white-space: nowrap;
+
+      .MuiDrawer-paper {
+        background-color: $yellow-primary;
+        padding: 1rem 0 1rem 0;
+        gap: 1rem;
+        border-right: none;
+        @include _drawerClosed;
+      }
+
+      &.open {
+        @include _drawerOpened;
+
+        .MuiDrawer-paper {
+          @include _drawerOpened;
+        }
+      }
+    }
+  }
+}

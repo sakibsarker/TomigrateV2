@@ -1,0 +1,12 @@
+$_monkey-logo-size: 4rem;
+
+#side-nav-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: $_monkey-logo-size;
+    height: $_monkey-logo-size;
+  }
+}
